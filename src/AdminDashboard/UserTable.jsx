@@ -356,9 +356,7 @@ export default function UserTable() {
                         .email("Invalid Email Address")
                         .required("Email Required"),
                     })}
-                    onSubmit={() => {
-                      UpdateUser;
-                    }}
+                    onSubmit={UpdateUser}
                   >
                     {({
                       values,

@@ -3,14 +3,15 @@ import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage";
 import { Route, Switch } from "react-router";
 import SignUpPage from "./components/SignUp";
-import UserPanel from "./UserDashboard/UserPanel";
+import UserPanel from "./components/UserDashboard/UserPanel";
 import ErrorPage from "./components/ErrorPage";
-import ForgetPassword from "./components/ForgetPassword/ForgetPasswordPage1";
+import ForgetPassword from "./components/ForgetPassword";
 import ResetPassword from "./components/ResetPassword";
-import "./AdminDashboard/Imports"
-import AdminPanel from "./AdminDashboard/AdminPanel";
-import AddUser from "./AdminDashboard/AddUser";
+import "./components/AdminDashboard/Imports"
+import AdminPanel from "./components/AdminDashboard/AdminPanel";
+import AddUser from "./components/AdminDashboard/AddUser";
 import AdminLogin from "./components/AdminLogin";
+import PrivateRoute from "./components/AdminDashboard/PrivateRoute";
 export default function App() {
 
   return (
@@ -18,7 +19,7 @@ export default function App() {
         <Switch>
           <Route exact path="/" component={()=>{return <HomePage/>}} />
           <Route exact path ="/login" component={()=>{return( <LoginPage/>)}}/>
-          <Route path ="/AdminPanel" component={({match})=>{return <AdminPanel match={match}/>}}/>
+          <PrivateRoute path ="/AdminPanel" component={({match})=>{return <AdminPanel match={match}/>}}/>
           <Route exact path ="/signup" render={()=>{return (<SignUpPage/>)}}/>
           <Route exact path ="/UserDashboard" component={()=>{return <UserPanel/>}}/>
           <Route exact path ="/ErrorPage" component={()=>{return <ErrorPage/>}}/>

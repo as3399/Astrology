@@ -1,0 +1,784 @@
+import React, { useEffect, useState, Router } from "react";
+import "./Imports";
+import Dashboard from "./Dashboard";
+import {
+  Link,
+  Route,
+  Switch,
+  useHistory,
+  useRouteMatch,
+} from "react-router-dom";
+import UserTable from "./UserTable";
+import user from "../images/user/user.png";
+import ErrorPage from "../ErrorPage";
+import AddUser from "./AddUser";
+import ErrorPage2 from "../ErrorPage2";
+import SubscriberList from "./SubscribersList";
+import SubscriptionUser from "./SubscriptionUser";
+// import img4 from "../components/images/user/04.jpg"
+// import img3 from "../components/images/user/03.jpg"
+// import img2 from "../components/images/user/02.jpg"
+// import img1 from "../components/images/user/01.jpg"
+export default function AdminPanel({ match }) {
+  let { path, url } = useRouteMatch();
+  console.log("path", path);
+  let history = useHistory();
+  console.log(match.path);
+  return (
+    <>
+      <div class="wrapper">
+        <div class="iq-sidebar">
+          <div class="iq-sidebar-logo d-flex justify-content-between">
+            <a href="index-2.html" class="header-logo">
+              <img
+                src="images/logo.png"
+                class="img-fluid rounded-normal"
+                alt=""
+              />
+              <div class="logo-title">
+                <span class="text-danger text-uppercase">
+                  Astrology<span class="text-primary ml-1"></span>
+                </span>
+              </div>
+            </a>
+            <div class="iq-menu-bt-sidebar">
+              <div class="iq-menu-bt align-self-center">
+                <div class="wrapper-menu">
+                  <div class="main-circle">
+                    <i class="ri-arrow-left-s-line"></i>
+                  </div>
+                  <div class="hover-circle">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="sidebar-scrollbar">
+            <nav class="iq-sidebar-menu">
+              <ul id="iq-sidebar-toggle" class="iq-menu">
+                <li onClick={() => history.push(`${match.path}`)}>
+                  <a class="iq-waves-effect">
+                    <i class="las la-home iq-arrow-left"></i>
+                    <span>Dashboard</span>
+                  </a>
+                </li>
+                <li onClick={() => history.push(`${url}/UserTable`)}>
+                  <a class="iq-waves-effect">
+                    <i class="las la-user iq-arrow-left"></i>
+                    <span>Users & Roles</span>
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="#ui-elements"
+                    class="iq-waves-effect collapsed"
+                    data-toggle="collapse"
+                    aria-expanded="false"
+                  >
+                    <i class="lab la-elementor iq-arrow-left"></i>
+                    <span>Purchases & Services</span>
+                    <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                  </a>
+                  <ul
+                    id="ui-elements"
+                    class="iq-submenu collapse"
+                    data-parent="#iq-sidebar-toggle"
+                  >
+                      <li class="elements" onClick={()=>{history.push("/AdminPanel/subscribers")}}>
+                        <a//
+                          href="#sub-menu"
+                          class="iq-waves-effect collapsed"
+                          data-toggle="collapse"
+                          aria-expanded="false"
+                        >
+                          <i class="ri-play-circle-line"></i>
+                          <span>Subscribers List</span>
+                        </a>
+                      </li>
+                    <li class="form">
+                      <a
+                        href="#forms"
+                        class="iq-waves-effect collapsed"
+                        data-toggle="collapse"
+                        aria-expanded="false"
+                      >
+                        <i class="lab la-wpforms"></i>
+                        <span>Forms</span>
+                        <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                      </a>
+                      <ul
+                        id="forms"
+                        class="iq-submenu collapse"
+                        data-parent="#ui-elements"
+                      >
+                        <li>
+                          <a href="form-layout.html">
+                            <i class="las la-book"></i>Form Elements
+                          </a>
+                        </li>
+                        <li>
+                          <a href="form-validation.html">
+                            <i class="las la-edit"></i>Form Validation
+                          </a>
+                        </li>
+                        <li>
+                          <a href="form-switch.html">
+                            <i class="las la-toggle-off"></i>Form Switch
+                          </a>
+                        </li>
+                        <li>
+                          <a href="form-chechbox.html">
+                            <i class="las la-check-square"></i>Form Checkbox
+                          </a>
+                        </li>
+                        <li>
+                          <a href="form-radio.html">
+                            <i class="ri-radio-button-line"></i>Form Radio
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a
+                        href="#wizard-form"
+                        class="iq-waves-effect collapsed"
+                        data-toggle="collapse"
+                        aria-expanded="false"
+                      >
+                        <i class="ri-archive-drawer-line"></i>
+                        <span>Forms Wizard</span>
+                        <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                      </a>
+                      <ul
+                        id="wizard-form"
+                        class="iq-submenu collapse"
+                        data-parent="#ui-elements"
+                      >
+                        <li>
+                          <a href="form-wizard.html">
+                            <i class="ri-clockwise-line"></i>Simple Wizard
+                          </a>
+                        </li>
+                        <li>
+                          <a href="form-wizard-validate.html">
+                            <i class="ri-clockwise-2-line"></i>Validate Wizard
+                          </a>
+                        </li>
+                        <li>
+                          <a href="form-wizard-vertical.html">
+                            <i class="ri-anticlockwise-line"></i>Vertical Wizard
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a
+                        href="#tables"
+                        class="iq-waves-effect collapsed"
+                        data-toggle="collapse"
+                        aria-expanded="false"
+                      >
+                        <i class="ri-table-line"></i>
+                        <span>Table</span>
+                        <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                      </a>
+                      <ul
+                        id="tables"
+                        class="iq-submenu collapse"
+                        data-parent="#ui-elements"
+                      >
+                        <li>
+                          <a href="tables-basic.html">
+                            <i class="ri-table-line"></i>Basic Tables
+                          </a>
+                        </li>
+                        <li>
+                          <a href="data-table.html">
+                            <i class="ri-database-line"></i>Data Table
+                          </a>
+                        </li>
+                        <li>
+                          <a href="table-editable.html">
+                            <i class="ri-refund-line"></i>Editable Table
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a
+                        href="#charts"
+                        class="iq-waves-effect collapsed"
+                        data-toggle="collapse"
+                        aria-expanded="false"
+                      >
+                        <i class="ri-pie-chart-box-line"></i>
+                        <span>Charts</span>
+                        <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                      </a>
+                      <ul
+                        id="charts"
+                        class="iq-submenu collapse"
+                        data-parent="#ui-elements"
+                      >
+                        <li>
+                          <a href="chart-morris.html">
+                            <i class="ri-file-chart-line"></i>Morris Chart
+                          </a>
+                        </li>
+                        <li>
+                          <a href="chart-high.html">
+                            <i class="ri-bar-chart-line"></i>High Charts
+                          </a>
+                        </li>
+                        <li>
+                          <a href="chart-am.html">
+                            <i class="ri-folder-chart-line"></i>Am Charts
+                          </a>
+                        </li>
+                        <li>
+                          <a href="chart-apex.html">
+                            <i class="ri-folder-chart-2-line"></i>Apex Chart
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a
+                        href="#icons"
+                        class="iq-waves-effect collapsed"
+                        data-toggle="collapse"
+                        aria-expanded="false"
+                      >
+                        <i class="ri-list-check"></i>
+                        <span>Icons</span>
+                        <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                      </a>
+                      <ul
+                        id="icons"
+                        class="iq-submenu collapse"
+                        data-parent="#ui-elements"
+                      >
+                        <li>
+                          <a href="icon-dripicons.html">
+                            <i class="ri-stack-line"></i>Dripicons
+                          </a>
+                        </li>
+                        <li>
+                          <a href="icon-fontawesome-5.html">
+                            <i class="ri-facebook-fill"></i>Font Awesome 5
+                          </a>
+                        </li>
+                        <li>
+                          <a href="icon-lineawesome.html">
+                            <i class="ri-keynote-line"></i>line Awesome
+                          </a>
+                        </li>
+                        <li>
+                          <a href="icon-remixicon.html">
+                            <i class="ri-remixicon-line"></i>Remixicon
+                          </a>
+                        </li>
+                        <li>
+                          <a href="icon-unicons.html">
+                            <i class="ri-underline"></i>unicons
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a
+                    href="#pages"
+                    class="iq-waves-effect collapsed"
+                    data-toggle="collapse"
+                    aria-expanded="false"
+                  >
+                    <i class="las la-file-alt iq-arrow-left"></i>
+                    <span>Pages</span>
+                    <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                  </a>
+                  <ul
+                    id="pages"
+                    class="iq-submenu collapse"
+                    data-parent="#iq-sidebar-toggle"
+                  >
+                    <li>
+                      <a
+                        href="#authentication"
+                        class="iq-waves-effect collapsed"
+                        data-toggle="collapse"
+                        aria-expanded="false"
+                      >
+                        <i class="ri-pages-line"></i>
+                        <span>Authentication</span>
+                        <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                      </a>
+                      <ul
+                        id="authentication"
+                        class="iq-submenu collapse"
+                        data-parent="#pages"
+                      >
+                        <li>
+                          <a href="sign-in.html">
+                            <i class="las la-sign-in-alt"></i>Login
+                          </a>
+                        </li>
+                        <li>
+                          <a href="sign-up.html">
+                            <i class="ri-login-circle-line"></i>Register
+                          </a>
+                        </li>
+                        <li>
+                          <a href="pages-recoverpw.html">
+                            <i class="ri-record-mail-line"></i>Recover Password
+                          </a>
+                        </li>
+                        <li>
+                          <a href="pages-confirm-mail.html">
+                            <i class="ri-file-code-line"></i>Confirm Mail
+                          </a>
+                        </li>
+                        <li>
+                          <a href="pages-lock-screen.html">
+                            <i class="ri-lock-line"></i>Lock Screen
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a
+                        href="#extra-pages"
+                        class="iq-waves-effect collapsed"
+                        data-toggle="collapse"
+                        aria-expanded="false"
+                      >
+                        <i class="ri-pantone-line"></i>
+                        <span>Extra Pages</span>
+                        <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                      </a>
+                      <ul
+                        id="extra-pages"
+                        class="iq-submenu collapse"
+                        data-parent="#pages"
+                      >
+                        <li>
+                          <a href="pages-timeline.html">
+                            <i class="ri-map-pin-time-line"></i>Timeline
+                          </a>
+                        </li>
+                        <li>
+                          <a href="pages-invoice.html">
+                            <i class="ri-question-answer-line"></i>Invoice
+                          </a>
+                        </li>
+                        <li>
+                          <a href="blank-page.html">
+                            <i class="ri-invision-line"></i>Blank Page
+                          </a>
+                        </li>
+                        <li>
+                          <a href="pages-error.html">
+                            <i class="ri-error-warning-line"></i>Error 404
+                          </a>
+                        </li>
+                        <li>
+                          <a href="pages-error-500.html">
+                            <i class="ri-error-warning-line"></i>Error 500
+                          </a>
+                        </li>
+                        <li>
+                          <a href="pages-pricing.html">
+                            <i class="ri-price-tag-line"></i>Pricing
+                          </a>
+                        </li>
+                        <li>
+                          <a href="pages-maintenance.html">
+                            <i class="ri-archive-line"></i>Maintenance
+                          </a>
+                        </li>
+                        <li>
+                          <a href="pages-comingsoon.html">
+                            <i class="ri-mastercard-line"></i>Coming Soon
+                          </a>
+                        </li>
+                        <li>
+                          <a href="pages-faq.html">
+                            <i class="ri-compasses-line"></i>Faq
+                          </a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <a
+                    href="#menu-level"
+                    class="iq-waves-effect collapsed"
+                    data-toggle="collapse"
+                    aria-expanded="false"
+                  >
+                    <i class="ri-record-circle-line iq-arrow-left"></i>
+                    <span>Menu Level</span>
+                    <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                  </a>
+                  <ul
+                    id="menu-level"
+                    class="iq-submenu collapse"
+                    data-parent="#iq-sidebar-toggle"
+                  >
+                    <li>
+                      <a href="#">
+                        <i class="ri-record-circle-line"></i>Menu 1
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="ri-record-circle-line"></i>Menu 2
+                      </a>
+                      <ul>
+                        <li class="menu-level">
+                          <a
+                            href="#sub-menus"
+                            class="iq-waves-effect collapsed"
+                            data-toggle="collapse"
+                            aria-expanded="false"
+                          >
+                            <i class="ri-play-circle-line"></i>
+                            <span>Sub-menu</span>
+                            <i class="ri-arrow-right-s-line iq-arrow-right"></i>
+                          </a>
+                          <ul
+                            id="sub-menus"
+                            class="iq-submenu iq-submenu-data collapse"
+                          >
+                            <li>
+                              <a href="#">
+                                <i class="ri-record-circle-line"></i>Sub-menu 1
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <i class="ri-record-circle-line"></i>Sub-menu 2
+                              </a>
+                            </li>
+                            <li>
+                              <a href="#">
+                                <i class="ri-record-circle-line"></i>Sub-menu 3
+                              </a>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="ri-record-circle-line"></i>Menu 3
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#">
+                        <i class="ri-record-circle-line"></i>Menu 4
+                      </a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <div class="iq-top-navbar">
+          <div class="iq-navbar-custom">
+            <nav class="navbar navbar-expand-lg navbar-light p-0">
+              <div class="iq-menu-bt d-flex align-items-center">
+                <div class="wrapper-menu">
+                  <div class="main-circle">
+                    <i class="ri-arrow-left-s-line"></i>
+                  </div>
+                  <div class="hover-circle">
+                    <i class="ri-arrow-right-s-line"></i>
+                  </div>
+                </div>
+                <div class="iq-navbar-logo d-flex justify-content-between">
+                  <a href="index-2.html" class="header-logo">
+                    <img
+                      src="images/logo.png"
+                      class="img-fluid rounded-normal"
+                      alt=""
+                    />
+                    <div class="pt-2 pl-2 logo-title font-size-21 font-weight-500">
+                      <span class="text-danger text-uppercase">
+                        Server<span class="text-primary ml-1">360</span>
+                      </span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="navbar-breadcrumb">
+                <h4 class="mb-0 text-dark">Dashboard</h4>
+                <p class="mb-0">
+                  <span class="text-danger">{}</span> Great to see you again
+                </p>
+              </div>
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-label="Toggle navigation"
+              >
+                <i class="ri-menu-3-line"></i>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto navbar-list">
+                  <li class="nav-item nav-icon">
+                    <div class="iq-search-bar">
+                      <form action="#" class="searchbox">
+                        <input
+                          type="text"
+                          class="text search-input font-size-12"
+                          placeholder="Type here to search..."
+                        />
+                        <a class="search-link" href="#">
+                          <i class="ri-search-line"></i>
+                        </a>
+                      </form>
+                    </div>
+                  </li>
+                  <li class="nav-item nav-icon">
+                    <a
+                      href="#"
+                      class="search-toggle iq-waves-effect text-primary rounded"
+                    >
+                      <i class="las la-bell font-size-24 block"></i>
+                      <span class="bg-danger dots"></span>
+                    </a>
+                    <div class="iq-sub-dropdown">
+                      <div class="iq-card shadow-none m-0">
+                        <div class="iq-card-body p-0">
+                          <div class="bg-primary p-3">
+                            <h5 class="mb-0 text-white">
+                              All Notifications
+                              <small class="badge  badge-light float-right pt-1">
+                                4
+                              </small>
+                            </h5>
+                          </div>
+                          <a href="#" class="iq-sub-card">
+                            <div class="media align-items-center">
+                              <div class="">
+                                <img
+                                  class="avatar-40 rounded"
+                                  src="images/user/01.jpg"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="media-body ml-3">
+                                <h6 class="mb-0 ">Emma Watson Barry</h6>
+                                <small class="float-right font-size-12">
+                                  Just Now
+                                </small>
+                                <p class="mb-0">95 MB</p>
+                              </div>
+                            </div>
+                          </a>
+                          <a href="#" class="iq-sub-card">
+                            <div class="media align-items-center">
+                              <div class="">
+                                <img
+                                  class="avatar-40 rounded"
+                                  src="images/user/02.jpg"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="media-body ml-3">
+                                <h6 class="mb-0 ">New customer is join</h6>
+                                <small class="float-right font-size-12">
+                                  5 days ago
+                                </small>
+                                <p class="mb-0">Cyst Barry</p>
+                              </div>
+                            </div>
+                          </a>
+                          <a href="#" class="iq-sub-card">
+                            <div class="media align-items-center">
+                              <div class="">
+                                <img
+                                  class="avatar-40 rounded"
+                                  src="images/user/03.jpg"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="media-body ml-3">
+                                <h6 class="mb-0 ">Two customer is left</h6>
+                                <small class="float-right font-size-12">
+                                  2 days ago
+                                </small>
+                                <p class="mb-0">Cyst Barry</p>
+                              </div>
+                            </div>
+                          </a>
+                          <a href="#" class="iq-sub-card">
+                            <div class="media align-items-center">
+                              <div class="">
+                                <img
+                                  class="avatar-40 rounded"
+                                  src="images/user/04.jpg"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="media-body ml-3">
+                                <h6 class="mb-0 ">New Mail from Fenny</h6>
+                                <small class="float-right font-size-12">
+                                  3 days ago
+                                </small>
+                                <p class="mb-0">Cyst Barry</p>
+                              </div>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <ul class="navbar-list">
+                <li class="line-height">
+                  <a
+                    href="#"
+                    class="search-toggle iq-waves-effect d-flex align-items-center"
+                  >
+                    <img
+                      src={user}
+                      class="img-fluid rounded-circle"
+                      alt="Admin"
+                    />
+                  </a>
+                  <div class="iq-sub-dropdown iq-user-dropdown">
+                    <div class="iq-card shadow-none m-0">
+                      <div class="iq-card-body p-0 ">
+                        <div class="bg-primary p-3">
+                          <h5 class="mb-0 text-white line-height">
+                            Hello Barry Tech
+                          </h5>
+                          <span class="text-white font-size-12">Available</span>
+                        </div>
+                        <a
+                          href="profile.html"
+                          class="iq-sub-card iq-bg-primary-hover"
+                        >
+                          <div class="media align-items-center">
+                            <div class="rounded iq-card-icon iq-bg-primary">
+                              <i class="ri-file-user-line"></i>
+                            </div>
+                            <div class="media-body ml-3">
+                              <h6 class="mb-0 ">My Profile</h6>
+                              <p class="mb-0 font-size-12">
+                                View personal profile details.
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                        <a
+                          href="profile-edit.html"
+                          class="iq-sub-card iq-bg-primary-hover"
+                        >
+                          <div class="media align-items-center">
+                            <div class="rounded iq-card-icon iq-bg-primary">
+                              <i class="ri-profile-line"></i>
+                            </div>
+                            <div class="media-body ml-3">
+                              <h6 class="mb-0 ">Edit Profile</h6>
+                              <p class="mb-0 font-size-12">
+                                Modify your personal details.
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                        <a
+                          href="account-setting.html"
+                          class="iq-sub-card iq-bg-primary-hover"
+                        >
+                          <div class="media align-items-center">
+                            <div class="rounded iq-card-icon iq-bg-primary">
+                              <i class="ri-account-box-line"></i>
+                            </div>
+                            <div class="media-body ml-3">
+                              <h6 class="mb-0 ">Account settings</h6>
+                              <p class="mb-0 font-size-12">
+                                Manage your account parameters.
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                        <a
+                          href="privacy-setting.html"
+                          class="iq-sub-card iq-bg-primary-hover"
+                        >
+                          <div class="media align-items-center">
+                            <div class="rounded iq-card-icon iq-bg-primary">
+                              <i class="ri-lock-line"></i>
+                            </div>
+                            <div class="media-body ml-3">
+                              <h6 class="mb-0 ">Privacy Settings</h6>
+                              <p class="mb-0 font-size-12">
+                                Control your privacy parameters.
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                        <div class="d-inline-block w-100 text-center p-3">
+                          <a
+                            onClick={() => {
+                              sessionStorage.clear();
+                              localStorage.clear();
+                              history.replace("/signup");
+                            }}
+                            style={{ color: "white" }}
+                            class="bg-primary iq-sign-btn"
+                            role="button"
+                          >
+                            Sign out<i class="ri-login-box-line ml-2"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <Switch>
+          <Route exact path={`${match.path}`} component={Dashboard} />
+          <Route exact path={`${match.path}/UserTable`} component={UserTable} />
+          <Route
+            exact
+            path={`${match.path}/AddUser`}
+            component={() => {
+              return <AddUser />;
+            }}
+          />
+          <Route
+            exact
+            path={`${match.path}/subscription`}
+            component={() => {
+              return <SubscriptionUser/>;
+            }}
+          />
+          <Route
+            exact
+            path={`${match.path}/subscribers`}
+            component={() => {
+              return <SubscriberList />;
+            }}
+          />
+          <Route path={path} render={ErrorPage2} />
+        </Switch>
+      </div>
+    </>
+  );
+}

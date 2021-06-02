@@ -1,14 +1,14 @@
+import "./SignUp.css";
 import axios from "axios";
-import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { useState } from "react";
+import { Formik } from "formik";
 import * as Yup from "yup";
-import mailImg from "./images/pngkit_reset-png_3367222.png";
-import { ErrorMessage, Formik, Form, Field } from "formik";
-
-export default function ResetPassword(props) {
+import "./AdminDashboard/Imports";
+import Navbar from "./NavBar";
+import mailImg from "./images/login/mail.png";
+export default function ForgetPassword() {
   const [show, setShow] = useState({ alert: false, succeed: false });
   const [Msg, setMsg] = useState("");
-  const history = useHistory();
 
   return (
     <>
@@ -17,48 +17,32 @@ export default function ResetPassword(props) {
           {!show.succeed ? (
             <>
               <div class="bg-white form-container sign-in-container">
-                <div class="sign-in-page-data w-100 ">
+                <div class="sign-in-page-data ">
                   <div class="sign-in-from w-100 m-auto">
-                    <h1 class="mb-3 text-center d-block">Reset Password</h1>
+                    <h1 class="mb-3 text-center d-block">Forgot Password</h1>
                     <p class="text-dark">
-                      Enter a new password for your account.
+                      Enter your email address and we'll send you an email with
+                      instructions to reset your password.
                     </p>
                     <Formik
-                      initialValues={{
-                        password: "",
-                        confirm_password: "",
-                      }}
+                      initialValues={{ email: "" }}
                       validationSchema={Yup.object().shape({
-                        password: Yup.string()
-                          .min(6, "Password must be of 6 characters")
-                          .required("Password Required"),
-                        confirm_password: Yup.string()
-                          .oneOf(
-                            [Yup.ref("password"), null],
-                            "Password do not match"
-                          )
-                          .required("Password Required"),
+                        email: Yup.string()
+                          .email("Enter valid Email Address")
+                          .required("Email Required"),
                       })}
                       onSubmit={async (values, { resetForm }) => {
                         await axios
-                          .put("http://localhost:5000/api/resetPassword", {
-                            resetLink: props.match.params.id,
-                            newPass: values.password,
+                          .put("http://localhost:5000/api/forgotPassword", {
+                            email: values.email,
                           })
                           .then((response) => {
+                            setMsg(values.email);
                             setShow({ alert: false, succeed: true });
-                            setMsg(response.data);
                             resetForm();
                           })
-                          .catch((err) => {
-                            setMsg(err.response.data.message);
-                            if (
-                              err.response.data.message ===
-                              "Incorrect token or it is expiredJsonWebTokenError: invalid token"
-                            ) {
-                              setMsg("Incorrect token or it is expired");
-                            }
-                            console.log(err.response.data.message);
+                          .catch((error) => {
+                            setMsg(error.response.data.message);
                             setShow({ alert: true, succeed: false });
                           });
                       }}
@@ -81,51 +65,25 @@ export default function ResetPassword(props) {
                                 <div class="iq-alert-text">{Msg}</div>
                               </div>
                             ) : null}
-                            <form onSubmit={handleSubmit} class="mt-4">
+
+                            <form class="mt-4" onSubmit={handleSubmit}>
                               <div class="form-group md-50">
-                                <label for="email">Enter New Password</label>
+                                <label for="email">Email address: *</label>
                                 <input
-                                  type="password"
-                                  name="password"
-                                  onBlur={handleBlur}
+                                  name="email"
+                                  id="email"
+                                  value={values.email}
                                   onChange={handleChange}
-                                  value={values.password}
-                                  placeholder="Enter Password"
+                                  onBlur={handleBlur}
                                   class={
-                                    touched.password && errors.password
+                                    touched.email && errors.email
                                       ? "form-control is-invalid invalid"
                                       : "form-control"
                                   }
                                 />
-                                {errors.password && (
-                                  <p class="invalid-feedback">
-                                    {errors.password}
-                                  </p>
+                                {errors.email && (
+                                  <p class="invalid-feedback">{errors.email}</p>
                                 )}
-                              </div>
-                              <div class="form-group md-50">
-                                <label for="email">Confirm Password *</label>
-                                <input
-                                  type="password"
-                                  name="confirm_password"
-                                  onBlur={handleBlur}
-                                  onChange={handleChange}
-                                  value={values.confirm_password}
-                                  placeholder="Confirm Password"
-                                  class={
-                                    touched.confirm_password &&
-                                    errors.confirm_password &&
-                                    !errors.password
-                                      ? "form-control is-invalid invalid"
-                                      : "form-control"
-                                  }
-                                />
-                                {!errors.password &&
-                                  errors.confirm_password && (
-                                    <p class="invalid-feedback">
-                                      {errors.confirm_password}
-                                    </p>
-                                  )}
                               </div>
                               <br></br>
                               <div class="d-inline-block w-100">
@@ -133,7 +91,7 @@ export default function ResetPassword(props) {
                                   type="submit"
                                   class="btn btn-primary float-right"
                                 >
-                                  Confirm
+                                  Reset Password
                                 </button>
                               </div>
                             </form>

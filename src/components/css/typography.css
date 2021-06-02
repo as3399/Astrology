@@ -41,8 +41,7 @@ NOTE: This file contains the styling for responsive Template.
 /*---------------------------------------------------------------------
 import Css
 -----------------------------------------------------------------------*/
-/* @import url("owl.carousel.min.css");
-
+@import url("owl.carousel.min.css");
 @import url("select2.min.css");
 @import url("magnific-popup.css");
 @import url("animate.css");
@@ -50,11 +49,11 @@ import Css
 @import url("style-customizer.css");
 @import url("magnific-popup.css");
 @import url("flatpickr.min.css");
-@import url("slick.css"); */
+@import url("slick.css"); 
 @import url("variable.css");
 @import url("style-customizer.css");
 @import url("owl.carousel.min.css");
-@import url("dripicons.css");
+/* @import url("dripicons.css"); */
 /* @import url("remixicon.css"); */
 @import url("fontawesome.css");
 @import url("line-awesome.min.css");

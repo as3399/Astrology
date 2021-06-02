@@ -1,5 +1,3 @@
-import "../AdminDashboard/AdminPanel.css";
-import "./LoginPage.css";
 import axios from "axios";
 import { useState } from "react";
 import { useHistory } from "react-router";
@@ -10,18 +8,16 @@ import * as Yup from "yup";
 import { MdError } from "react-icons/md";
 import Navbar from "./NavBar";
 
- function LoginPage() {
+function LoginPage() {
   const history = useHistory();
   const [show, setShow] = useState(false);
   const [Msg, setMsg] = useState("");
-
-
 
   return (
     <div class="super_container">
       <>
         <Navbar />
-         <div class="container">
+        <div class="container">
           <div class="main">
             <h3>Login</h3>
           </div>
@@ -46,14 +42,14 @@ import Navbar from "./NavBar";
                 .required("Password Required"),
             })}
             onSubmit={async (values) => {
-              console.log(values);
               await axios
                 .post("http://localhost:5000/api/logIn", {
                   email: values.email,
                   password: values.password,
                 })
                 .then((response) => {
-                  console.log(response);
+                  console.log(response, "res");
+                  // localStorage.setItem("token", JSON.stringify(response.data.token))
                   if (
                     response.data.message == "Welcome to the admin dashboard"
                   ) {
@@ -66,7 +62,8 @@ import Navbar from "./NavBar";
                   }
                 })
                 .catch((error) => {
-                  setMsg(error.response.data.message, "error");
+                  setMsg(error.response.data.message);
+                  console.log(error);
                   if (error.response.status >= 400) {
                     setShow(true);
                   }

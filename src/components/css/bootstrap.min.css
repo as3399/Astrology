@@ -296,7 +296,8 @@ button::-moz-focus-inner {
 input[type=checkbox],
 input[type=radio] {
 	box-sizing: border-box;
-	padding: 0
+	padding: 0;
+
 }
 
 input[type=date],
@@ -3984,7 +3985,7 @@ input[type=submit].btn-block {
 	position: relative;
 	display: block;
 	min-height: 1.5rem;
-	padding-left: 1.5rem
+	padding-left: 3rem;
 }
 
 .custom-control-inline {
@@ -4040,24 +4041,24 @@ input[type=submit].btn-block {
 
 .custom-control-label::before {
 	position: absolute;
-	top: .25rem;
-	left: -1.5rem;
-	display: block;
-	width: 1rem;
-	height: 1rem;
-	pointer-events: none;
-	content: "";
-	background-color: #fff;
-	border: #adb5bd solid 1px
+    top: .25rem;
+    left: -2rem;
+    display: block;
+    width: 1.6rem;
+    height: 1.6rem;
+    pointer-events: none;
+    content: "";
+    background-color: #fff;
+    border: #adb5bd solid 1px;
 }
 
 .custom-control-label::after {
 	position: absolute;
 	top: .25rem;
-	left: -1.5rem;
+	left: -2rem;
 	display: block;
-	width: 1rem;
-	height: 1rem;
+	width: 1.6rem;
+    height: 1.6rem;
 	content: "";
 	background: no-repeat 50%/50% 50%
 }
@@ -5556,7 +5557,7 @@ a.badge-dark:focus {
 
 .alert {
 	position: relative;
-	padding: .75rem 1.25rem;
+    padding: 0.5rem 1rem;
 	margin-bottom: 1rem;
 	border: 1px solid transparent;
 	border-radius: .25rem

@@ -1,6 +1,5 @@
 import React from "react";
-import "./LoginPage.css";
-import "../AdminDashboard/Imports";
+import "./AdminDashboard/Imports";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router";
@@ -20,15 +19,16 @@ export default function AdminLogin() {
     fieldErr: fieldErr,
   });
   const [Msg, setMsg] = useState("");
+
   let reloadCount = Number(sessionStorage.getItem("reloadcount")) || 0;
   useEffect(() => {
-    reload();
-  }, []);
-
-  function reload() {
-    if (reloadCount < 2) {
-      sessionStorage.setItem("reloadcount", JSON.stringify(reloadCount + 1));
-      window.location.reload();
+      reload();
+    }, []);
+    
+    function reload() {
+        if (reloadCount < 2) {
+            sessionStorage.setItem("reloadcount", JSON.stringify(reloadCount + 1));
+            window.location.reload();
     }
   }
 
@@ -52,7 +52,6 @@ export default function AdminLogin() {
                       .email("Invalid Email Address")
                       .required("Email Required"),
                     password: Yup.string()
-                      .min(6, "Password must of 6 characters")
                       .required("Password Required"),
                   })}
                   onSubmit={async (values) => {
@@ -63,6 +62,7 @@ export default function AdminLogin() {
                         password: values.password,
                       })
                       .then((response) => {
+                        localStorage.setItem("token", JSON.stringify(response.data.token))
                         console.log(response);
                         if (
                           response.data.message ==
@@ -79,6 +79,9 @@ export default function AdminLogin() {
                       })
                       .catch((error) => {
                         setMsg(error.response.data.message, "error");
+                        if (error.response.data.message == "something went wrongReferenceError: err is not defined"){
+                          setMsg("Can't Login! You are not an Admin")
+                        }
                         if (error.response.status >= 400) {
                           setShow({
                             registered: false,
@@ -86,7 +89,6 @@ export default function AdminLogin() {
                             loginErr: true,
                             fieldErr: fieldErr,
                           });
-                          setMsg(error.response.data.message, "error");
                           if (
                             error.response.data.message ==
                             "User not found, Please enter valid detail"
@@ -98,6 +100,9 @@ export default function AdminLogin() {
                             "Password is not correct, Please verify your password"
                           ) {
                             setFieldErr(1);
+                          }
+                          else{
+                            setFieldErr(-1);
                           }
                         }
                       });

@@ -1,6 +1,5 @@
 import React from "react" 
 import { Link } from "react-router-dom"
-import "../AdminDashboard/AdminPanel.css";
 
 export default function Navbar(){
     return(<><div id="navbar">

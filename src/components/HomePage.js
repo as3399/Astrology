@@ -1,5 +1,4 @@
-import "../AdminDashboard/AdminPanel.css";
-import "./LoginPage.css";
+import "./css/AdminPanel.css";
 import "./HomePage.css";
 import { Link, Switch, Route, BrowserRouter } from "react-router-dom";
 import LoginPage from "./LoginPage";
